@@ -42,7 +42,6 @@ class Window(Frame):
         return str(round(dblbyte, 2)) + " " + sizes[i]
 
     def on_field_change(self, index, value, op):
-        print(self.boardstring.get())
         self.boarddescriptiontext['text'] = list(filter(lambda x: x['board'] == self.boardstring.get(), self.boards))[0]['title']
     
     def load_boards(self):
@@ -168,7 +167,6 @@ class Window(Frame):
         exit()
 
     def view_thread(self):
-        #print(self.boards)
 
         self.selectedboard = self.boardstring.get()
         self.selectedthread = self.threadstring.get()
@@ -214,7 +212,12 @@ class Window(Frame):
         if not os.path.exists(collectiondir):
             os.makedirs(collectiondir)
         
-        threaddir = os.path.join(collectiondir, self.selectedthread)
+        boarddir = os.path.join(collectiondir, self.selectedboard)
+
+        if not os.path.exists(boarddir):
+            os.makedirs(boarddir)
+        
+        threaddir = os.path.join(boarddir, self.selectedthread)
 
         if not os.path.exists(threaddir):
             os.makedirs(threaddir)
